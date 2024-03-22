@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build and push Docker image
 
 on:
   push:
@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+      id-token: write
+      contents: read
+      
 jobs:
 
   build:
