@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$CI_COMMIT_SHORT_SHA
+      run: docker build . --file Dockerfile --tag ${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$GITHUB_SHA
 
     - name: Login to Azure
       uses: azure/login@v1
@@ -31,7 +31,7 @@ jobs:
       run: az acr login --name ${{ vars.CONTAINER_REGISTRY_NAME }}
 
     - name: Remote tag image
-      run: docker tag ${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$CI_COMMIT_SHORT_SHA ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$CI_COMMIT_SHORT_SHA
+      run: docker tag ${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$GITHUB_SHA ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$GITHUB_SHA
 
     - name: Push image to ACR
-      run: docker push ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$CI_COMMIT_SHORT_SHA
+      run: docker push ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$GITHUB_SHA
