@@ -1,0 +1,14 @@
+# syntax = edrevo/dockerfile-plus
+
+# VSCode will show you an error on this line because it doesn't understand the
+# dockerfile-plus syntax. Sorry, can't find a workaround other than ignoring it.
+INCLUDE+ ./Dockerfile
+
+# Additionally install dev dependencies
+RUN poetry install --only dev
+
+# Run in debug mode
+ENV VV_DEBUG=true
+
+# Make port 5678 available to the world outside this container for debugging
+EXPOSE 5678

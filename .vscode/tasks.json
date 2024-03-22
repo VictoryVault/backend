@@ -1,0 +1,51 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "docker-build",
+            "label": "docker-build",
+            "platform": "python",
+            "dockerBuild": {
+                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/Dockerfile-debug",
+                "tag": "victoryvault-backend:latest"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": ["docker-build"],
+            "dockerRun": {
+                "image": "victoryvault-backend:latest",
+                "containerName": "victoryvault-backend-debug",
+                "ports": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 8080
+                    },
+                    {
+                        "containerPort": 5678,
+                        "hostPort": 5678
+                    }
+                ]
+            },
+        },
+        {
+            // Needing this is horrible and I can't believe I'm doing this level of
+            // hackery this early in the project, but without this, VScode tries to
+            // connect to the debugger before the container is ready, and it fails
+            // silently and ends the debug session.
+            "label": "wait-for-docker",
+            "type": "shell",
+            "command": "sleep 2",
+            "dependsOn": ["docker-run: debug"],
+            "problemMatcher": []
+        },
+        {
+            "label": "remove-docker",
+            "type": "shell",
+            "command": "docker rm -f victoryvault-backend-debug",
+            "problemMatcher": []
+        }
+    ]
+}
