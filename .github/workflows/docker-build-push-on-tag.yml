@@ -6,6 +6,6 @@ on:
 
 jobs:
   build-and-push:
-    uses: ./docker-build-push.yml
+    uses: ./.github/workflows/docker-build-push.yml
     with:
       version: ${{ github.ref_name }}
