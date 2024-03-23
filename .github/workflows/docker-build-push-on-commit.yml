@@ -1,0 +1,13 @@
+name: Build and push Docker image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    uses: ./docker-build-push.yml
+    with:
+      version: ${{ github.sha }}

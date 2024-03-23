@@ -1,15 +1,14 @@
-name: Build and push Docker image
-
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 permissions:
       id-token: write
       contents: read
-      
+
 jobs:
 
   build:
@@ -17,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+
     - name: Check out the code
       uses: actions/checkout@v3
-      
+
     - name: Login to Azure
       uses: azure/login@v1
       with:
@@ -36,5 +35,5 @@ jobs:
       with:
         push: true
         build-args: |
-          version=${{ github.sha }}
-        tags: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:${{ github.sha }}
+          version=${{ inputs.version }}
+        tags: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:${{ inputs.version }}
