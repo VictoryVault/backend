@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+      id-token: write
+      contents: read
+
 jobs:
   build-and-push:
     uses: ./.github/workflows/docker-build-push.yml
