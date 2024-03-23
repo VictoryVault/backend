@@ -36,5 +36,5 @@ jobs:
       with:
         push: true
         build-args: |
-          version=$GITHUB_SHA
-        tags: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:$GITHUB_SHA
+          version=${{ github.sha }}
+        tags: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ vars.CONTAINER_IMAGE_NAME_BACKEND }}:${{ github.sha }}
