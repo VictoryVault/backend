@@ -1,0 +1,12 @@
+sqlalchemy
+fastapi
+asyncpg
+psycopg[binary]
+uvicorn
+alembic
+pytest
+pytest_asyncio
+httpx
+sqlmodel
+black
+ruff
