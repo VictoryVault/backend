@@ -15,8 +15,15 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install --only main
 
 # Add the current directory contents into the container at /app
-COPY ./app backend/app
-COPY ./run.py backend/run.py
+COPY ./app app
+COPY ./run.py run.py
+
+# set environment variables for DB connection
+ENV DB_USER=$DB_USER
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_HOST=$DB_HOST
+ENV DB_PORT=$DB_PORT
+ENV DB_NAME=$DB_NAME
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
