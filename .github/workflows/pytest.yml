@@ -23,8 +23,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Install poetry
-        uses: snok/install-poetry@v1.2.0
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
 
       - name: Install dependencies
         run: poetry install
