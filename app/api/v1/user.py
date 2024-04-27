@@ -1,8 +1,10 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import DBAPIError
 
 from app.core.database import get_db
+from app.core.auth import oauth2_scheme
 from app.models.user import UserRead, UserCreate
 import app.crud.user as crud_user
 
@@ -10,7 +12,11 @@ router = APIRouter(prefix="/user", tags=["user"])
 
 
 @router.get("/get-user", response_model=UserRead | None)
-async def get_user(id: str, db: AsyncSession = Depends(get_db)):
+async def get_user(
+        id: str, 
+        token: Annotated[str, Depends(oauth2_scheme)],
+        db: AsyncSession = Depends(get_db), 
+    ):
     try:
         user = await crud_user.get(db, id)
     except DBAPIError:

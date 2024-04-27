@@ -12,6 +12,7 @@ class UserBase(SQLModel):
 class User(UUIDModel, TimestampModel, UserBase, table=True):
     __tablename__ = "Users"
     __table_args__ = (UniqueConstraint("email"),)
+    hashed_password: str
 
 
 class UserRead(UUIDModel, UserBase): ...
