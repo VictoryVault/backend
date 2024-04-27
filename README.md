@@ -40,6 +40,10 @@ Alembic should be triggered to configure the database by calling:
 ```
 Alembic upgrade HEAD
 ```
+### pytest_asyncio version specified as 0.21.1
+As a result of the currently [known issue](https://pytest-asyncio.readthedocs.io/en/latest/reference/changelog.html) with creating session scoped event loops in pytest_asyncio 0.23, the version has been locked to 0.21 until this is resolved, to avoid warnings over deprecation.
+
+A session scoped event loop is preferred over a module scoped one to avoid the need for recreating database connections multiple times during the testing procedure. This functionality has been deprecated in the latest version of pytest_asyncio however is currently being reviewed due to this exact usecase.
 
 # Running webapp (TODO: update)
 Calling `python -m main` from within `\backend` will start the webapp at `http:\\localhost:8080`.

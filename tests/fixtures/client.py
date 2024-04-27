@@ -7,7 +7,7 @@ import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from pytest_postgresql.janitor import DatabaseJanitor
-from app import init_app
+from app.main import init_app
 from app.core.database import get_db, sessionmanager
 from app.core.config import config
 
@@ -29,7 +29,7 @@ def app():
 async def client(app):
     async with AsyncClient(
         transport=ASGITransport(app=app),
-        base_url="http://localhost:8080",
+        base_url="http://0.0.0.0:80",
     ) as c:
         yield c
 

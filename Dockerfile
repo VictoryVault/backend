@@ -2,7 +2,7 @@
 FROM python:3.12.2-slim-bookworm
 
 # Set the working directory in the container to /app
-WORKDIR /app
+WORKDIR /backend
 
 # Install poetry and disable virtual envs
 RUN pip install poetry
@@ -15,10 +15,11 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install --only main
 
 # Add the current directory contents into the container at /app
-COPY . /app
+COPY ./app backend/app
+COPY ./run.py backend/run.py
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
 # Run the command to start uvicorn
-CMD ["poetry", "run", "python", "main.py"]
+CMD ["poetry", "run", "python", "run.py"]
