@@ -1,12 +1,8 @@
 name: Backend pytest
 
 on:
-  # Configure Manual Trigger
-  workflow_dispatch:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "fastapi-groundwork" ]
 
 jobs:
 
