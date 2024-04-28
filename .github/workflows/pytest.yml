@@ -2,7 +2,8 @@ name: Backend pytest
 
 on:
   push:
-    branches: [ "fastapi-groundwork" ]
+    branches:
+    - '**' # all branches
 
 jobs:
 

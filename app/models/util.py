@@ -17,6 +17,7 @@ class StatusMessage(BaseModel):
     message: str
 
 
+# SQLModel Mixin to automatically add primary key id configuration to a table
 class UUIDModel(SQLModel):
     uuid: uuid_pkg.UUID = Field(
         default_factory=uuid_pkg.uuid4,
@@ -26,7 +27,9 @@ class UUIDModel(SQLModel):
         sa_column_kwargs={"server_default": text("gen_random_uuid()"), "unique": True},
     )
 
-
+# SQLModel Mixin to automatically add timestamp configuration and creation to a table
+# timestamps are generated based on server time and record the time of entry creation
+# as well as automatically add last update timestamp
 class TimestampModel(SQLModel):
     created_at: datetime = Field(
         default_factory=datetime.now,

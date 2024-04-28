@@ -4,26 +4,30 @@ from httpx import AsyncClient
 
 @pytest.mark.asyncio
 async def test_user(client: AsyncClient):
-    response = await client.get("/api/user/get-users")
+    # check there are no users when test starts
+    response = await client.get("/api/users/")
 
     assert response.status_code == 200
     assert len(response.json()) == 0
 
+    # create a user
     response = await client.post(
-        "/api/user/create-user",
+        "/api/users/",
         json={"email": "test@example.com", "full_name": "Full Name Test"},
     )
 
     assert response.status_code == 200
 
-    response = await client.get("/api/user/get-users")
+    # check that number of users is now 1
+    response = await client.get("/api/users/")
 
     assert response.status_code == 200
     assert len(response.json()) == 1
     
     id = (response.json()[0])["uuid"]
 
-    response = await client.get(f"/api/user/get-user?id={id}")
+    # test GET on specific user created above
+    response = await client.get(f"/api/users/{id}")
 
     assert response.status_code == 200
     assert response.json()["full_name"] == "Full Name Test"
