@@ -22,7 +22,7 @@ ruff = "^0.4"
 pytest-postgresql = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8"
+pytest = "~8.1"
 debugpy = "^1"
 
 [build-system]
