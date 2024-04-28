@@ -38,7 +38,6 @@ Pytest is used for testing, with pytest_async ensuring async testing of all asyn
 
 Pytest_postgresql provides a database janitor for PostgreSQL to ensure a new testdb is created for the testing run that does not risk overwriting anything with the DB, and cleans up once the run completes regardless of outcome.
 
-
 ### Fixtures
 Setup for testing environment to create database and API testing client, handle cleanup and ensure no test can affect other tests
 
