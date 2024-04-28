@@ -1,12 +1,9 @@
-import os
 import uvicorn
-from fastapi import FastAPI
+import os
+from app.main import init_app
 
-app = FastAPI()
 
-@app.get("/")
-async def read_root():
-    return {"message": "Hello from code!"}
+server = init_app()
 
 if 'VV_DEBUG' in os.environ:
     import debugpy
@@ -16,4 +13,4 @@ if 'VV_DEBUG' in os.environ:
     print("Debugger attached")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=80)
+    uvicorn.run(server, host="0.0.0.0", port=80)
